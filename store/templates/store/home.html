@@ -1,0 +1,94 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center section-title">✨ Explore Our Products ✨</h2>
+    <div class="row g-4"> <!-- ✅ Added gutter spacing -->
+        {% for product in products %}
+            <div class="col-md-4">
+                <div class="card product-card">
+                    <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}" loading="lazy">
+                    <div class="card-body text-center">
+                        <h5 class="card-title product-title">{{ product.name }}</h5>
+                        <p class="card-text product-price">💰 ₹{{ product.price }}</p>
+                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary add-to-cart-btn">🛒 Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+/* 🏠 Home Page Styling */
+.section-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #0072ff;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* ✅ Reduced shadow for speed */
+}
+
+/* 🛍️ Product Cards */
+.product-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.08); /* ✅ Lighter shadow */
+    background: linear-gradient(to bottom, #ffffff, #f7f9fc);
+    margin-bottom: 20px; /* ✅ Increased spacing */
+}
+
+.product-card:hover {
+    transform: scale(1.03); /* ✅ Lower scale to reduce lag */
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 🖼️ Product Images */
+.product-img {
+    border-radius: 12px 12px 0 0;
+    height: 230px;
+    object-fit: cover;
+    transition: transform 0.2s ease-in-out;
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.05); /* ✅ Lowered zoom to prevent excessive repainting */
+}
+
+/* 📜 Product Title */
+.product-title {
+    font-size: 19px;
+    font-weight: 600;
+    color: #343a40;
+    margin-top: 8px;
+}
+
+/* 💰 Product Price */
+.product-price {
+    font-size: 17px;
+    font-weight: bold;
+    color: #28a745;
+    margin-bottom: 8px;
+}
+
+/* 🛒 Add to Cart Button */
+.add-to-cart-btn {
+    background: linear-gradient(to right, #0072ff, #00c6ff);
+    border: none;
+    padding: 8px 16px; /* ✅ Reduced padding for faster rendering */
+    border-radius: 6px; /* ✅ Slightly smaller border-radius */
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    transition: background 0.2s ease-in-out, transform 0.15s;
+}
+
+.add-to-cart-btn:hover {
+    background: linear-gradient(to right, #0056b3, #0080ff);
+    transform: scale(1.04);
+}
+</style>
+{% endblock %}

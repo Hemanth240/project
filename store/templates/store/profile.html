@@ -1,0 +1,62 @@
+{% extends 'store/base.html' %}
+{% load static %}  <!-- ✅ Load static files -->
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <!-- ✅ Default Profile Picture -->
+        <div class="profile-header">
+            <img src="{% static 'images/default-profile.jpg' %}" alt="Profile Picture" class="profile-img">
+        </div>
+
+        <!-- ✅ User Information -->
+        <div class="profile-body">
+            <h2>{{ user.username }}</h2>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Phone:</strong> {{ user.phone }}</p>
+        </div>
+    </div>
+</div>
+<style>
+    /* Profile Page Styling */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.profile-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* ✅ Default Profile Image Styling */
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #007bff;
+    margin-bottom: 15px;
+}
+
+/* User Details */
+.profile-body h2 {
+    color: #343a40;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.profile-body p {
+    font-size: 16px;
+    color: #6c757d;
+}
+
+</style>
+{% endblock %}

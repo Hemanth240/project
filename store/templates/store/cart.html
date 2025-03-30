@@ -1,0 +1,145 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="cart-container">
+    <h2>🛒 Your Shopping Cart</h2>
+
+    {% if cart_items %}
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td><img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-img"></td>
+                    <td>₹{{ item.product.price }}</td>
+                    <td>
+                        <!-- Decrease Button -->
+                        <a href="{% url 'decrease_quantity' item.id %}" class="quantity-btn">-</a>
+                        <span class="mx-2">{{ item.quantity }}</span>
+                        <!-- Increase Button -->
+                        <a href="{% url 'increase_quantity' item.id %}" class="quantity-btn">+</a>
+                    </td>
+                    <td>₹{{ item.product.price|floatformat:2 }}</td>
+                    <td>
+                        <a href="{% url 'remove_from_cart' item.id %}" class="remove-btn">❌</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- ✅ Grand Total Now Displays the Correct Sum -->
+        <div class="cart-summary">
+            <h3>Grand Total: ₹{{ grand_total|floatformat:2 }}</h3>
+            <a href="{% url 'checkout' %}" class="checkout-btn">Proceed to Checkout</a>
+        </div>
+    {% else %}
+        <p class="empty-cart">Your cart is empty. Start shopping now! 🛍️</p>
+    {% endif %}
+</div>
+<style>
+    /* 🛒 Cart Page Styling */
+.cart-container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.cart-container h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+/* 🛍️ Cart Table */
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.cart-table th, .cart-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.cart-table th {
+    background: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.cart-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+/* ❌ Remove Button */
+.remove-btn {
+    text-decoration: none;
+    font-size: 18px;
+    color: red;
+    transition: color 0.3s;
+}
+
+.remove-btn:hover {
+    color: darkred;
+}
+
+/* 💰 Total Price & Checkout */
+.cart-summary {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-summary h3 {
+    font-size: 22px;
+    color: #28a745;
+    margin-bottom: 15px;
+}
+
+.checkout-btn {
+    display: inline-block;
+    background: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.checkout-btn:hover {
+    background: #218838;
+}
+
+/* 🛍️ Empty Cart Message */
+.empty-cart {
+    font-size: 18px;
+    color: #888;
+    margin-top: 20px;
+}
+
+</style>
+{% endblock %}

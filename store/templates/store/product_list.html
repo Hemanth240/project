@@ -1,0 +1,39 @@
+{% extends 'store/base.html' %}
+{% block content %}
+
+<div class="container">
+    <h2>🛍️ Product Categories</h2>
+    <div class="row">
+        {% for category in categories %}
+        <div class="col-md-3">
+            <a href="{% url 'category_products' category.id %}" class="btn btn-outline-primary w-100 my-2">
+                {{ category.name }}
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h2 class="mt-4">🔥 All Products</h2>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-3">
+            <div class="card my-2">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                {% else %}
+                <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">${{ product.price }}</p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No products available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
