@@ -6,14 +6,18 @@
     <div class="card shadow-lg p-4 rounded-3" style="width: 400px;">
         <h2 class="text-center mb-4">🔑 Login to Your Account</h2>
         {% if messages %}
-    <div class="alert alert-danger text-center">
-        {% for message in messages %}
+    {% for message in messages %}
+        <div class="alert text-center
+            {% if message.tags == 'success' %}alert-success
+            {% elif message.tags == 'error' %}alert-danger
+            {% else %}alert-info{% endif %}">
             {{ message }}
-        {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
 {% endif %}
 
-        <form method="POST">
+
+        <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
 
             <div class="mb-3">
@@ -62,5 +66,29 @@
     .btn-primary:hover {
         background: #357abD;
     }
+    .alert-success {
+    color: white;
+    background-color: #28a745; /* Green */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.alert-danger {
+    color: white;
+    background-color: #dc3545; /* Red */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.alert-info {
+    color: white;
+    background-color: #17a2b8; /* Blue */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
 </style>
 {% endblock %}

@@ -129,7 +129,7 @@ import os
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'store/static'),  # Ensure this folder exists
+    os.path.join(BASE_DIR, '/store/static'),  # Ensure this folder exists
 ]
 
 JAZZMIN_SETTINGS = {
